@@ -1,19 +1,22 @@
 package com.infinityrefactoring.util.text;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Expression implements Comparable<Expression> {
+public class Expression implements Comparable<Expression>, Serializable {
 
-	private final ExpressionDefinition EXPRESSION_DEFINITION;
+	private static final long serialVersionUID = -5849814835368769937L;
+
 	private final int START;
 	private final String EXPRESSION;
 	private final String SUB_EXPRESSION;
 
-	public Expression(ExpressionDefinition expressionDefinition, int start, String subExpression) {
-		EXPRESSION_DEFINITION = expressionDefinition;
+	public Expression(int start, String expression, String subExpression) {
 		START = start;
-		EXPRESSION = (expressionDefinition.getStart() + subExpression + expressionDefinition.getEnd());
-		SUB_EXPRESSION = subExpression;
+		EXPRESSION = requireNonNull(expression, "expression");
+		SUB_EXPRESSION = requireNonNull(subExpression, "subExpression");
 	}
 
 	@Override
@@ -39,10 +42,6 @@ public class Expression implements Comparable<Expression> {
 
 	public String getExpression() {
 		return EXPRESSION;
-	}
-
-	public ExpressionDefinition getExpressionDefinition() {
-		return EXPRESSION_DEFINITION;
 	}
 
 	public int getStart() {

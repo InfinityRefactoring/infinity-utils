@@ -1,6 +1,6 @@
 package com.infinityrefactoring.util.text;
 
-import static com.infinityrefactoring.util.text.ExpressionDefinition.DOLLAR_CURLY_BRACKET;
+import static com.infinityrefactoring.util.text.ExpressionDefinitions.ofDollarCurlyBracket;
 import static java.lang.Thread.currentThread;
 import static java.util.stream.Collectors.joining;
 import static org.junit.Assert.assertArrayEquals;
@@ -40,7 +40,7 @@ public class ExpressionDefinitionTest {
 			map.put("${header-width}", "100");
 			map.put("${header-width - 20}", "80");
 			map.put("${'luctus turpis elit sit amet quam.' +=  \n	\"Vivamus pretium ornare est.\"}", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.");
-			String message = ExpressionDefinition.DOLLAR_CURLY_BRACKET.interpolate(template, e -> map.get(e.getExpression()));
+			String message = ofDollarCurlyBracket().interpolate(template, e -> map.get(e.getExpression()));
 
 			try (BufferedReader in2 = new BufferedReader(new InputStreamReader(currentThread().getContextClassLoader().getResourceAsStream("message.html")))) {
 				String expectedMessage = in2.lines()
@@ -54,7 +54,7 @@ public class ExpressionDefinitionTest {
 	@Test
 	public void testIgnoreTextBetweenSingleQuotes() {
 		String template = "Lorem ${ipsum} dolor sit amet, 'consectetur adipiscing' elit, \\\\sed do \\${ 'eiusmod' ${(tempor + 1 * 10) / 5 == x ? 'incididunt ut' : 'labore \\\\et dolore'} magna \\${aliqua\\}  \\\\\\\\.";
-		SortedMap<Expression, SortedSet<Integer>> expressions = DOLLAR_CURLY_BRACKET.findAll(template);
+		SortedMap<Expression, SortedSet<Integer>> expressions = ofDollarCurlyBracket().findAll(template);
 
 		assertEquals(2, expressions.size());
 
@@ -86,7 +86,7 @@ public class ExpressionDefinitionTest {
 		assertArrayEquals(new Integer[]{62, 71, 162, 171, 175, 177}, escapes);
 
 		AtomicInteger i = new AtomicInteger(1);
-		String message = DOLLAR_CURLY_BRACKET.interpolate(template, e -> "REPLACE" + i.getAndIncrement());
+		String message = ofDollarCurlyBracket().interpolate(template, e -> "REPLACE" + i.getAndIncrement());
 
 		assertEquals("Lorem REPLACE1 dolor sit amet, 'consectetur adipiscing' elit, \\sed do ${ 'eiusmod' REPLACE2 magna ${aliqua}  \\\\.", message);
 	}
@@ -94,7 +94,7 @@ public class ExpressionDefinitionTest {
 	@Test
 	public void testInterpolation() {
 		String template = "Hello ${firstName} ${lastName}!";
-		String text = DOLLAR_CURLY_BRACKET.interpolate(template, e -> e.getSubExpression().equals("firstName") ? "Thomás" : "Sousa Silva");
+		String text = ofDollarCurlyBracket().interpolate(template, e -> e.getSubExpression().equals("firstName") ? "Thomás" : "Sousa Silva");
 		assertEquals("Hello Thomás Sousa Silva!", text);
 	}
 
