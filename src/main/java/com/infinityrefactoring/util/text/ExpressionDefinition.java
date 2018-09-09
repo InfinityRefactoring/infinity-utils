@@ -1,11 +1,12 @@
 package com.infinityrefactoring.util.text;
 
+import static com.infinityrefactoring.util.text.ExpressionDefinitions.ofDoubleQuoteLiteral;
+import static com.infinityrefactoring.util.text.ExpressionDefinitions.ofSingleQuoteLiteral;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableSortedMap;
 import static java.util.Collections.unmodifiableSortedSet;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedMap;
@@ -14,14 +15,9 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.function.Function;
 
-public class ExpressionDefinition {
+public class ExpressionDefinition implements Serializable {
 
-	public static final ExpressionDefinition DOLLAR_CURLY_BRACKET = new ExpressionDefinition("${", "}", '\\', true, true);
-	public static final ExpressionDefinition CURLY_BRACKET = new ExpressionDefinition("{", "}", '\\', true, true);
-	public static final ExpressionDefinition SQUARE_BRACKET = new ExpressionDefinition("[", "]", '\\', true, true);
-	public static final ExpressionDefinition SINGLE_QUOTE_LITERAL = new ExpressionDefinition("'", "'", '\\', false, true);
-	public static final ExpressionDefinition DOUBLE_QUOTE_LITERAL = new ExpressionDefinition("\"", "\"", '\\', true, false);
-	private final Map<String, SortedMap<Expression, SortedSet<Integer>>> CACHE = new HashMap<>();
+	private static final long serialVersionUID = -5332694199781449627L;
 
 	private final String START;
 	private final String END;
@@ -41,17 +37,10 @@ public class ExpressionDefinition {
 	}
 
 	public SortedMap<Expression, SortedSet<Integer>> findAll(String template) {
-		return findAll(template, true);
+		return findAll(template, 0);
 	}
 
-	public SortedMap<Expression, SortedSet<Integer>> findAll(String template, boolean cacheable) {
-		return findAll(template, 0, cacheable);
-	}
-
-	public SortedMap<Expression, SortedSet<Integer>> findAll(String template, int offset, boolean cacheable) {
-		if (cacheable && (offset == 0) && CACHE.containsKey(template)) {
-			return CACHE.get(template);
-		}
+	public SortedMap<Expression, SortedSet<Integer>> findAll(String template, int offset) {
 		SortedSet<Expression> expressions = new TreeSet<>();
 		int currentOffset = offset, startExpressionIndex = offset;
 		while (startExpressionIndex >= 0) {
@@ -62,11 +51,7 @@ public class ExpressionDefinition {
 				currentOffset = expression.getEnd();
 			}
 		}
-		SortedMap<Expression, SortedSet<Integer>> map = getRemovableEscapeIndexes(template, expressions, offset);
-		if (cacheable && (offset == 0)) {
-			CACHE.put(template, map);
-		}
-		return map;
+		return getRemovableEscapeIndexes(template, expressions, offset);
 	}
 
 	public String getEnd() {
@@ -86,7 +71,7 @@ public class ExpressionDefinition {
 	 */
 	public Expression getExpression(String template, int startExpressionIndex) {
 		String subExpression = template.substring((startExpressionIndex + START.length()), getExpressionEndIndex(template, startExpressionIndex));
-		return new Expression(this, startExpressionIndex, subExpression);
+		return new Expression(startExpressionIndex, (START + subExpression + END), subExpression);
 	}
 
 	/**
@@ -106,11 +91,11 @@ public class ExpressionDefinition {
 				continue;
 			}
 			if (ignoreSingleQuoteLiteral(c)) {
-				i = SINGLE_QUOTE_LITERAL.getExpressionEndIndex(template, i);
+				i = ofSingleQuoteLiteral().getExpressionEndIndex(template, i);
 				continue;
 			}
 			if (ignoreDoubleQuoteLiteral(c)) {
-				i = DOUBLE_QUOTE_LITERAL.getExpressionEndIndex(template, i);
+				i = ofDoubleQuoteLiteral().getExpressionEndIndex(template, i);
 				continue;
 			}
 			if (template.startsWith(END, i)) {
@@ -141,11 +126,11 @@ public class ExpressionDefinition {
 				continue;
 			}
 			if (ignoreSingleQuoteLiteral(c)) {
-				i = SINGLE_QUOTE_LITERAL.getExpressionEndIndex(template, i);
+				i = ofSingleQuoteLiteral().getExpressionEndIndex(template, i);
 				continue;
 			}
 			if (ignoreDoubleQuoteLiteral(c)) {
-				i = DOUBLE_QUOTE_LITERAL.getExpressionEndIndex(template, i);
+				i = ofDoubleQuoteLiteral().getExpressionEndIndex(template, i);
 				continue;
 			}
 			if (template.startsWith(START, i)) {
@@ -155,16 +140,15 @@ public class ExpressionDefinition {
 		return -1;
 	}
 
-	public String interpolate(String template, boolean cacheable, Function<Expression, ?> formatter) {
-		return interpolate(template, 0, cacheable, formatter);
-	}
-
 	public String interpolate(String template, Function<Expression, ?> formatter) {
-		return interpolate(template, true, formatter);
+		return interpolate(template, 0, formatter);
 	}
 
-	public String interpolate(String template, int offset, boolean cacheable, Function<Expression, ?> formatter) {
-		SortedMap<Expression, SortedSet<Integer>> expressions = findAll(template, offset, cacheable);
+	public String interpolate(String template, int offset, Function<Expression, ?> formatter) {
+		return interpolate(template, findAll(template, offset), formatter);
+	}
+
+	public String interpolate(String template, SortedMap<Expression, SortedSet<Integer>> expressions, Function<Expression, ?> formatter) {
 		if (expressions.isEmpty()) {
 			return template;
 		}
@@ -204,10 +188,6 @@ public class ExpressionDefinition {
 		return IGNORE_SINGLE_QUOTE_LITERAL;
 	}
 
-	public void removeCache(String template) {
-		CACHE.remove(template);
-	}
-
 	@Override
 	public String toString() {
 		return new StringBuilder()
@@ -224,11 +204,11 @@ public class ExpressionDefinition {
 			char c = template.charAt(i);
 
 			if (ignoreSingleQuoteLiteral(c)) {
-				i = SINGLE_QUOTE_LITERAL.getExpressionEndIndex(template, i);
+				i = ofSingleQuoteLiteral().getExpressionEndIndex(template, i);
 				continue;
 			}
 			if (ignoreDoubleQuoteLiteral(c)) {
-				i = DOUBLE_QUOTE_LITERAL.getExpressionEndIndex(template, i);
+				i = ofDoubleQuoteLiteral().getExpressionEndIndex(template, i);
 				continue;
 			}
 
