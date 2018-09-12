@@ -1,7 +1,6 @@
 package com.infinityrefactoring.util.text;
 
 import static com.infinityrefactoring.util.text.ExpressionDefinitions.ofDollarCurlyBracket;
-import static java.lang.Thread.currentThread;
 import static java.util.stream.Collectors.joining;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -21,11 +20,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
 
+import com.infinityrefactoring.util.io.Resources;
+
 public class ExpressionDefinitionTest {
 
 	@Test
 	public void testFileInterpolation() throws IOException {
-		try (BufferedReader in = new BufferedReader(new InputStreamReader(currentThread().getContextClassLoader().getResourceAsStream("message-template.html")))) {
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(Resources.getResourceAsStream("interpolation/message-template.html")))) {
 			String template = in.lines()
 					.collect(joining("\n"));
 
@@ -42,7 +43,7 @@ public class ExpressionDefinitionTest {
 			map.put("${'luctus turpis elit sit amet quam.' +=  \n	\"Vivamus pretium ornare est.\"}", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.");
 			String message = ofDollarCurlyBracket().interpolate(template, e -> map.get(e.getExpression()));
 
-			try (BufferedReader in2 = new BufferedReader(new InputStreamReader(currentThread().getContextClassLoader().getResourceAsStream("message.html")))) {
+			try (BufferedReader in2 = new BufferedReader(new InputStreamReader(Resources.getResourceAsStream("interpolation/message.html")))) {
 				String expectedMessage = in2.lines()
 						.collect(joining("\n"));
 
