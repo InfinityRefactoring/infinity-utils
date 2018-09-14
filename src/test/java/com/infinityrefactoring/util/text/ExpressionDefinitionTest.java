@@ -1,15 +1,11 @@
 package com.infinityrefactoring.util.text;
 
 import static com.infinityrefactoring.util.text.ExpressionDefinitions.ofDollarCurlyBracket;
-import static java.util.stream.Collectors.joining;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -25,31 +21,24 @@ import com.infinityrefactoring.util.io.Resources;
 public class ExpressionDefinitionTest {
 
 	@Test
-	public void testFileInterpolation() throws IOException {
-		try (BufferedReader in = new BufferedReader(new InputStreamReader(Resources.getResourceAsStream("interpolation/message-template.html")))) {
-			String template = in.lines()
-					.collect(joining("\n"));
+	public void testFileInterpolation() {
+		String template = Resources.readLines("interpolation/message-template.html");
 
-			Map<String, String> map = new HashMap<>();
-			map.put("${header1}", "Header1");
-			map.put("${link1}", "http://example.com");
-			map.put("${header2}", "two");
-			map.put("${((code1 * 10) / 2) + 5.2}", "3495084308");
-			map.put("${item1 += 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'}", "foo");
-			map.put("${\"Aliquam tincidunt mauris eu risus.\" += 10}", "bar");
-			map.put("${header3}", "three");
-			map.put("${header-width}", "100");
-			map.put("${header-width - 20}", "80");
-			map.put("${'luctus turpis elit sit amet quam.' +=  \n	\"Vivamus pretium ornare est.\"}", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.");
-			String message = ofDollarCurlyBracket().interpolate(template, e -> map.get(e.getExpression()));
+		Map<String, String> map = new HashMap<>();
+		map.put("${header1}", "Header1");
+		map.put("${link1}", "http://example.com");
+		map.put("${header2}", "two");
+		map.put("${((code1 * 10) / 2) + 5.2}", "3495084308");
+		map.put("${item1 += 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'}", "foo");
+		map.put("${\"Aliquam tincidunt mauris eu risus.\" += 10}", "bar");
+		map.put("${header3}", "three");
+		map.put("${header-width}", "100");
+		map.put("${header-width - 20}", "80");
+		map.put("${'luctus turpis elit sit amet quam.' +=  \n	\"Vivamus pretium ornare est.\"}", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.");
+		String message = ofDollarCurlyBracket().interpolate(template, e -> map.get(e.getExpression()));
 
-			try (BufferedReader in2 = new BufferedReader(new InputStreamReader(Resources.getResourceAsStream("interpolation/message.html")))) {
-				String expectedMessage = in2.lines()
-						.collect(joining("\n"));
-
-				assertEquals(expectedMessage, message);
-			}
-		}
+		String expectedMessage = Resources.readLines("interpolation/message.html");
+		assertEquals(expectedMessage, message);
 	}
 
 	@Test

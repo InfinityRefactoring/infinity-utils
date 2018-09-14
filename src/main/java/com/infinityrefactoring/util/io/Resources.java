@@ -1,9 +1,12 @@
 package com.infinityrefactoring.util.io;
 
 import static java.util.Collections.emptySet;
+import static java.util.stream.Collectors.joining;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -121,6 +124,28 @@ public class Resources {
 
 	public static Set<URL> getResources(String name) {
 		return getResources(Resources.class.getClassLoader(), name);
+	}
+
+	public static String readLines(InputStream in) {
+		try (InputStream stream = in) {
+			return new BufferedReader(new InputStreamReader(stream))
+					.lines()
+					.collect(joining("\n"));
+		} catch (IOException ex) {
+			throw new RuntimeException(ex);
+		}
+	}
+
+	public static String readLines(String resource) {
+		return readLines(Resources.getResource(resource));
+	}
+
+	public static String readLines(URL url) {
+		try {
+			return readLines(url.openStream());
+		} catch (IOException ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 
 }
