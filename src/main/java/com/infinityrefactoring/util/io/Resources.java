@@ -26,6 +26,26 @@ import java.util.stream.Stream;
  */
 public class Resources {
 
+	public static String getFilenameWithoutLocale(String filename, String suffix) {
+		int indexOfHyphen = filename.indexOf('_');
+		if ((indexOfHyphen < 0) || ((filename.length() - indexOfHyphen) < 2)) {
+			return filename;
+		}
+		String subName = filename.substring(0, indexOfHyphen);
+		if ((suffix != null) && (!suffix.isEmpty()) && filename.endsWith(suffix)) {
+			return (subName + suffix);
+		}
+		return subName;
+	}
+
+	public static String getFilenameWithoutLocale(URL url, String suffix) {
+		try {
+			return getFilenameWithoutLocale(Paths.get(url.toURI()).getFileName().toString(), suffix);
+		} catch (URISyntaxException ex) {
+			throw new RuntimeException(ex);
+		}
+	}
+
 	public static Locale getLocaleOfFilename(String filename, String suffix) {
 		if ((suffix != null) && (!suffix.isEmpty()) && filename.endsWith(suffix)) {
 			filename = filename.substring(0, filename.length() - suffix.length());

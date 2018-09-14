@@ -1,5 +1,6 @@
 package com.infinityrefactoring.util.io;
 
+import static com.infinityrefactoring.util.io.Resources.getFilenameWithoutLocale;
 import static com.infinityrefactoring.util.io.Resources.getLocaleOfFilename;
 import static com.infinityrefactoring.util.io.Resources.getLocalizedFilename;
 import static com.infinityrefactoring.util.io.Resources.getLocalizedResourceNames;
@@ -24,6 +25,17 @@ import org.junit.Test;
  * @author Thomás Sousa Silva (ThomasSousa96)
  */
 public class ResourcesTest {
+
+	@Test
+	public void testGetFilenameWithoutLocale() {
+		assertEquals("messages", getFilenameWithoutLocale("messages", null));
+		assertEquals("messages", getFilenameWithoutLocale("messages", ""));
+		assertEquals("messages.properties", getFilenameWithoutLocale("messages.properties", ".properties"));
+
+		assertEquals("messages", getFilenameWithoutLocale("messages_pt_BR", ""));
+		assertEquals("messages", getFilenameWithoutLocale("messages_pt_BR", null));
+		assertEquals("messages.properties", getFilenameWithoutLocale("messages_pt_BR.properties", ".properties"));
+	}
 
 	@Test
 	public void testGetLocaleOfFilename() {
