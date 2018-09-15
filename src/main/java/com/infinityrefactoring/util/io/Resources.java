@@ -39,11 +39,9 @@ public class Resources {
 	}
 
 	public static String getFilenameWithoutLocale(URL url, String suffix) {
-		try {
-			return getFilenameWithoutLocale(Paths.get(url.toURI()).getFileName().toString(), suffix);
-		} catch (URISyntaxException ex) {
-			throw new RuntimeException(ex);
-		}
+		Path path = Paths.get(url.getPath());
+		String filename = path.getName(path.getNameCount() - 1).toString();
+		return getFilenameWithoutLocale(filename, suffix);
 	}
 
 	public static Locale getLocaleOfFilename(String filename, String suffix) {
@@ -119,14 +117,14 @@ public class Resources {
 					while (entries.hasMoreElements()) {
 						JarEntry entry = entries.nextElement();
 						String entryName = entry.getName();
-						if ((!entry.isDirectory()) && entryName.startsWith(entryName)) {
+						if (entryName.startsWith(name) && !entry.isDirectory()) {
 							set.add(new URL("jar", "", String.format("file:%s!/%s", jarPath, entryName)));
 						}
 					}
 				} else {
 					Files.walk(Paths.get(url.toURI()))
 							.map(Path::toFile)
-							.filter(f -> !f.isDirectory())
+							.filter(f -> f.getPath().contains(name) && !f.isDirectory())
 							.forEach(f -> {
 								try {
 									set.add(f.toURI().toURL());
