@@ -1,4 +1,4 @@
-package com.infinityrefactoring.util.io;
+package com.seudev.util.io;
 
 import static com.seudev.util.io.Resources.getFilenameWithoutLocale;
 import static com.seudev.util.io.Resources.getLocaleOfFilename;

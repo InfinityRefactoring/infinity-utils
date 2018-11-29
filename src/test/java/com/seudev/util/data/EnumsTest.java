@@ -1,4 +1,4 @@
-package com.infinityrefactoring.util.data;
+package com.seudev.util.data;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;

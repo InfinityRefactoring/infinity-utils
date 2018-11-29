@@ -1,4 +1,4 @@
-package com.infinityrefactoring.util.text;
+package com.seudev.util.text;
 
 import static com.seudev.util.text.ExpressionDefinitions.ofDollarCurlyBracket;
 import static org.junit.Assert.assertArrayEquals;
