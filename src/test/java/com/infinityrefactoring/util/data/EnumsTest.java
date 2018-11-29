@@ -12,7 +12,8 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
-import com.infinityrefactoring.util.Enumeration;
+import com.seudev.util.Enumeration;
+import com.seudev.util.data.Enums;
 
 /**
  * @author Thomás Sousa Silva (ThomasSousa96)

@@ -1,4 +1,4 @@
-package com.infinityrefactoring.util;
+package com.seudev.util;
 
 import java.io.Serializable;
 

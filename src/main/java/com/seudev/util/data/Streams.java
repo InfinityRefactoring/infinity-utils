@@ -1,4 +1,4 @@
-package com.infinityrefactoring.util.data;
+package com.seudev.util.data;
 
 import java.util.Map;
 import java.util.function.BiFunction;

@@ -1,4 +1,4 @@
-package com.infinityrefactoring.util.data;
+package com.seudev.util.data;
 
 import static java.util.Collections.unmodifiableMap;
 import static java.util.Collections.unmodifiableNavigableMap;
@@ -16,7 +16,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeMap;
 
-import com.infinityrefactoring.util.Enumeration;
+import com.seudev.util.Enumeration;
 
 /**
  * @author Thomás Sousa Silva (ThomasSousa96)

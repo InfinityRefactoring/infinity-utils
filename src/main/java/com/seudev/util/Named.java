@@ -1,4 +1,4 @@
-package com.infinityrefactoring.util;
+package com.seudev.util;
 
 /**
  * @author Thomás Sousa Silva (ThomasSousa96)
