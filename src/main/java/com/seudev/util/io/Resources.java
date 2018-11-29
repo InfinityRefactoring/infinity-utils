@@ -1,4 +1,4 @@
-package com.infinityrefactoring.util.io;
+package com.seudev.util.io;
 
 import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.joining;

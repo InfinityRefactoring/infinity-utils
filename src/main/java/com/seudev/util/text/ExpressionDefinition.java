@@ -1,7 +1,7 @@
-package com.infinityrefactoring.util.text;
+package com.seudev.util.text;
 
-import static com.infinityrefactoring.util.text.ExpressionDefinitions.ofDoubleQuoteLiteral;
-import static com.infinityrefactoring.util.text.ExpressionDefinitions.ofSingleQuoteLiteral;
+import static com.seudev.util.text.ExpressionDefinitions.ofDoubleQuoteLiteral;
+import static com.seudev.util.text.ExpressionDefinitions.ofSingleQuoteLiteral;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableSortedMap;
 import static java.util.Collections.unmodifiableSortedSet;

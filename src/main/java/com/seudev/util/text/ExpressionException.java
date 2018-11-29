@@ -1,4 +1,4 @@
-package com.infinityrefactoring.util.text;
+package com.seudev.util.text;
 
 public class ExpressionException extends RuntimeException {
 

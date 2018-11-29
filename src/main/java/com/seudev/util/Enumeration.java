@@ -1,8 +1,8 @@
-package com.infinityrefactoring.util;
+package com.seudev.util;
 
 import java.io.Serializable;
 
-import com.infinityrefactoring.util.data.Enums;
+import com.seudev.util.data.Enums;
 
 /**
  * @author Thomás Sousa Silva (ThomasSousa96)

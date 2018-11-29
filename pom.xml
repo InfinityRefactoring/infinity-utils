@@ -1,81 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.infinityrefactoring</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>1.0.0</version>
-	</parent>
-	<artifactId>infinity-utils</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.seudev</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>infinity-utils</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-	<name>Infinity Utils</name>
-	<description>A library with functionalities that are frequently necessary for make bigger something.</description>
-	<url>https://github.com/InfinityRefactoring/infinity-utils</url>
+    <name>Infinity Utils</name>
+    <description>A library with functionalities that are frequently necessary for make bigger something.</description>
+    <url>http://infinity-utils.seudev.com</url>
+    <inceptionYear>2018</inceptionYear>
 
-	<organization>
-		<name>InfinityRefactoring</name>
-		<url>https://infinityrefactoring.com</url>
-	</organization>
+    <organization>
+        <name>Seudev</name>
+        <url>https://seudev.com</url>
+    </organization>
 
-	<developers>
-		<developer>
-			<id>ThomasSousa96</id>
-			<name>Thomás Sousa Silva</name>
-			<email>thomas.sousa.96@gmail.com</email>
-			<url>https://github.com/ThomasSousa96</url>
-			<organization>InfinityRefactoring</organization>
-			<organizationUrl>https://infinityrefactoring.com</organizationUrl>
-		</developer>
-	</developers>
+    <developers>
+        <developer>
+            <id>ThomasSousa96</id>
+            <name>Thomás Sousa Silva</name>
+            <email>thomas@seudev.com</email>
+            <url>http://thomas.seudev.com</url>
+            <organization>Seudev</organization>
+            <organizationUrl>https://seudev.com</organizationUrl>
+            <roles>
+                <role>Founder</role>
+                <role>Chief Executive Officer</role>
+                <role>Developer</role>
+            </roles>
+            <timezone>America/Recife</timezone>
+            <properties>
+                <picUrl>https://seudev.com/img/member/ThomasSousa96.jpeg</picUrl>
+            </properties>
+        </developer>
+    </developers>
 
-	<scm>
-		<url>https://github.com/InfinityRefactoring/infinity-utils</url>
-		<connection>scm:git:https://github.com/InfinityRefactoring/infinity-utils.git</connection>
-		<developerConnection>scm:git:https://github.com/InfinityRefactoring/infinity-utils.git</developerConnection>
-		<tag>master</tag>
-	</scm>
+    <scm>
+        <url>https://github.com/seudev/infinity-utils</url>
+        <connection>scm:git:https://github.com/seudev/infinity-utils.git</connection>
+        <developerConnection>scm:git:https://github.com/seudev/infinity-utils.git</developerConnection>
+        <tag>master</tag>
+    </scm>
 
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-	<properties>
-		<java.version>1.8</java.version>
-		<source.encoding>UTF-8</source.encoding>
-		<maven.compiler.source>${java.version}</maven.compiler.source>
-		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<project.build.sourceEncoding>${source.encoding}</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>${source.encoding}</project.reporting.outputEncoding>
-	</properties>
+    <properties>
+        <java.version>1.8</java.version>
+        <source.encoding>UTF-8</source.encoding>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>${source.encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${source.encoding}</project.reporting.outputEncoding>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>javax.cache</groupId>
-			<artifactId>cache-api</artifactId>
-			<version>1.1.0</version>
-			<scope>provided</scope>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>1.1.0</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<version>2.0</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

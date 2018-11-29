@@ -1,4 +1,4 @@
-package com.infinityrefactoring.util.text;
+package com.seudev.util.text;
 
 import static java.util.Objects.requireNonNull;
 

@@ -1,11 +1,11 @@
-package com.infinityrefactoring.util.io;
+package com.seudev.util.io;
 
-import static com.infinityrefactoring.util.io.Resources.getFilenameWithoutLocale;
-import static com.infinityrefactoring.util.io.Resources.getLocaleOfFilename;
-import static com.infinityrefactoring.util.io.Resources.getLocalizedFilename;
-import static com.infinityrefactoring.util.io.Resources.getLocalizedResourceNames;
-import static com.infinityrefactoring.util.io.Resources.getLocalizedResources;
-import static com.infinityrefactoring.util.io.Resources.getResources;
+import static com.seudev.util.io.Resources.getFilenameWithoutLocale;
+import static com.seudev.util.io.Resources.getLocaleOfFilename;
+import static com.seudev.util.io.Resources.getLocalizedFilename;
+import static com.seudev.util.io.Resources.getLocalizedResourceNames;
+import static com.seudev.util.io.Resources.getLocalizedResources;
+import static com.seudev.util.io.Resources.getResources;
 import static java.util.Collections.singleton;
 import static java.util.Locale.ENGLISH;
 import static java.util.Locale.forLanguageTag;

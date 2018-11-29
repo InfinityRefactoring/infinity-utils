@@ -1,4 +1,4 @@
-package com.infinityrefactoring.util.text;
+package com.seudev.util.text;
 
 import java.util.SortedMap;
 import java.util.SortedSet;
