@@ -1,6 +1,6 @@
 package com.seudev.util.text;
 
-import static com.seudev.util.text.ExpressionDefinitions.ofDollarCurlyBracket;
+import static com.seudev.util.el.ExpressionDefinitions.ofDollarCurlyBracket;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -16,8 +16,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
 
+import com.seudev.util.el.Expression;
 import com.seudev.util.io.Resources;
-import com.seudev.util.text.Expression;
 
 public class ExpressionDefinitionTest {
 

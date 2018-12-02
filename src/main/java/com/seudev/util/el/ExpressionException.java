@@ -1,4 +1,4 @@
-package com.seudev.util.text;
+package com.seudev.util.el;
 
 public class ExpressionException extends RuntimeException {
 
